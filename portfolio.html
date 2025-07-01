@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ankit Negi - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            color: #f0e9e9;
+            position: relative;
+            z-index: 1;
+            overflow-x: hidden;
+        }
+        .background-video {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -3;
+        }
+        .video-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(10, 25, 49, 0.6);
+            z-index: -2;
+            backdrop-filter: blur(2px);
+        }
+        #particles-js {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .profile-photo-corner {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #ffd700;
+            box-shadow: 0 4px 32px 0 #ffd70055, 0 2px 12px rgba(0,0,0,0.15);
+            background: #fff;
+            z-index: 10;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            animation: glow 2s infinite alternate, bounceIn 1.2s;
+        }
+        @keyframes glow {
+            from { box-shadow: 0 4px 32px 0 #ffd70055, 0 2px 12px rgba(0,0,0,0.15);}
+            to { box-shadow: 0 4px 48px 8px #ffd70099, 0 2px 12px rgba(0,0,0,0.15);}
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.7) translateY(-80px); opacity: 0; }
+            60% { transform: scale(1.1) translateY(20px); opacity: 1; }
+            80% { transform: scale(0.95) translateY(-10px);}
+            100% { transform: scale(1) translateY(0);}
+        }
+        .profile-photo-corner:hover {
+            transform: scale(1.07) rotate(-2deg);
+            border-color: #ff9800;
+        }
+        .glass {
+            background: rgba(255,255,255,0.10);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.18);
+            padding: 28px 32px;
+            margin-bottom: 32px;
+            width: 100%;
+            max-width: 650px;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1.2s forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(40px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0);}
+        }
+        h1 {
+            color: #ffd700;
+            letter-spacing: 2px;
+            margin-bottom: 0;
+            font-size: 2.5em;
+            font-family: 'Fira Mono', 'Consolas', monospace;
+            min-height: 48px;
+        }
+        .typing {
+            border-right: .15em solid #ffd700;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 2.5s steps(20, end), blink-caret .75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #ffd700; }
+        }
+        .greeting {
+            font-size: 1.2em;
+            margin-bottom: 18px;
+            font-style: italic;
+            color: #ffd700;
+            text-shadow: 0 2px 8px #0a1931;
+        }
+        h2 {
+            color: #ff9800;
+            margin-top: 0;
+        }
+        ul {
+            font-size: 20px;
+            font-weight: bold;
+            color: #00b894;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+            transition: transform 0.2s, color 0.2s;
+        }
+        li:hover {
+            color: #ff9800;
+            transform: translateX(10px) scale(1.05);
+        }
+        .theme-toggle {
+            margin-bottom: 20px;
+            padding: 8px 18px;
+            border: none;
+            border-radius: 6px;
+            background: #00b894;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            z-index: 20;
+            animation: floatBtn 3s ease-in-out infinite;
+        }
+        .theme-toggle:hover {
+            background: #ff9800;
+        }
+        @keyframes floatBtn {
+            0%,100% { transform: translateY(0);}
+            50% { transform: translateY(-8px);}
+        }
+        .progress-group {
+            margin-top: 18px;
+        }
+        .progress-bar {
+            background: rgba(255,255,255,0.18);
+            border-radius: 8px;
+            height: 18px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px #0a193133;
+        }
+        .progress {
+            position: relative;
+            height: 100%;
+            background: linear-gradient(90deg, #00b894, #ffd700 80%);
+            width: 0;
+            border-radius: 8px;
+            transition: width 1.4s cubic-bezier(.4,2.3,.3,1);
+            box-shadow: 0 0 8px #ffd70088;
+            animation: progressFill 1.4s cubic-bezier(.4,2.3,.3,1);
+        }
+        @keyframes progressFill {
+            from { width: 0; }
+            to { }
+        }
+        .progress-label {
+            position: absolute;
+            right: 16px;
+            top: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-size: 0.95em;
+            color: #222;
+            font-weight: bold;
+            text-shadow: 0 1px 4px #ffd70099;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .progress-group label {
+            color: #fff;
+            font-size: 1em;
+            margin-bottom: 2px;
+            display: block;
+            font-family: 'Fira Mono', 'Consolas', monospace;
+        }
+        @media (max-width: 700px) {
+            .glass { max-width: 98%; padding: 14px 6px;}
+            .profile-photo-corner { width: 90px; height: 90px; top: 10px; right: 10px; }
+            h1 { font-size: 1.3em; }
+        }
+        .progress.show-label {
+            animation: pulseGlow 0.7s;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 8px #ffd70088, 0 0 0 #ffd70000;}
+            50% { box-shadow: 0 0 24px #ffd700cc, 0 0 16px #ffd70055;}
+            100% { box-shadow: 0 0 8px #ffd70088, 0 0 0 #ffd70000;}
+        }
+        .glass ul li {
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+            border-radius: 8px;
+            padding: 4px 8px;
+        }
+        .glass ul li:hover {
+            background: #ffd70022;
+            color: #ffd700;
+            transform: translateX(10px) scale(1.05);
+        }
+        /* Confetti style */
+        .confetti {
+            position: fixed;
+            top: 0;
+            width: 10px;
+            height: 18px;
+            border-radius: 3px;
+            opacity: 0.8;
+            z-index: 9999;
+            animation: confetti-fall linear forwards;
+        }
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotateZ(360deg);
+                opacity: 0.2;
+            }
+        }
+        /* Light theme styles */
+        body.light-theme {
+            background: #f7f7f7;
+            color: #222;
+        }
+        body.light-theme .glass {
+            background: rgba(255,255,255,0.85);
+            color: #222;
+        }
+        body.light-theme h1,
+        body.light-theme h2,
+        body.light-theme h3 {
+            color: #0077b5;
+        }
+        body.light-theme .progress-bar {
+            background: #e0e0e0;
+        }
+        body.light-theme .progress {
+            background: linear-gradient(90deg, #0077b5, #00b894 80%);
+        }
+        body.light-theme .theme-toggle {
+            background: #0077b5;
+            color: #fff;
+        }
+        /* Add this CSS to ensure progress bars start empty */
+        .progress-bar .progress {
+            width: 0;
+            transition: width 1.4s cubic-bezier(.4,2.3,.3,1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Profile photo and badge (top-left) -->
+    <div style="position:fixed;top:18px;left:28px;z-index:31;display:flex;flex-direction:column;align-items:center;">
+      <a href="https://linkedin.com/in/ankit-negi-2aa98232" target="_blank" style="text-decoration:none;">
+        <img src="myphoto.jpg" alt="Ankit Negi Photo" class="profile-photo-corner" style="box-shadow:0 4px 32px 0 #ffd70055,0 2px 12px rgba(0,0,0,0.15);position:static;">
+      </a>
+      <span style="margin-top:12px;font-size:1.1em;font-weight:bold;color:#ffd700;background:rgba(10,25,49,0.85);padding:4px 18px;border-radius:12px;box-shadow:0 2px 8px #0002;letter-spacing:1px;display:block;text-align:center;">
+        Ankit Negi<br>
+        <span style="font-size:2em;color:#00b894;">Web Developer</span>
+      </span>
+    </div>
+
+    <!-- Navigation bar (top-right) -->
+    <nav style="position:fixed;top:18px;right:28px;left:auto;transform:none;z-index:30;display:flex;flex-direction:column;align-items:flex-end;gap:18px;background:rgba(10,25,49,0.7);padding:18px 30px 18px 30px;border-radius:18px;box-shadow:0 2px 12px #0003;">
+      <div style="display:flex;gap:28px;">
+        <a href="#about" style="color:#ffd700;text-decoration:none;font-weight:bold;">About</a>
+        <a href="#skills" style="color:#ffd700;text-decoration:none;font-weight:bold;">Skills</a>
+        <a href="#projects" style="color:#ffd700;text-decoration:none;font-weight:bold;">Projects</a>
+        <a href="#contact" style="color:#ffd700;text-decoration:none;font-weight:bold;">Contact</a>
+      </div>
+      <!-- Add a fun quote or animated icon below the nav links -->
+      <div style="margin-top:10px;font-size:1em;color:#baffb8;opacity:0.85;display:flex;align-items:center;gap:8px;">
+        <i class="fas fa-mountain"></i>
+        <span style="font-style:italic;">"Building ideas, one pixel at a time."</span>
+      </div>
+    </nav>
+
+    <video class="background-video" autoplay muted loop playsinline>
+        <source src="bg1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="video-overlay"></div>
+    <div id="particles-js"></div>
+    <button class="theme-toggle" onclick="toggleTheme()">Switch Theme</button>
+    <div class="greeting" id="greeting"></div>
+    <h1><span class="typing" id="typed-name"></span></h1>
+    <div class="glass" id="about">
+        <h2>About Me</h2>
+        <p>
+            Hey! I'm Ankit Negi, a knowledgeable and enthusiastic developer passionate about building creative solutions and learning new technologies. 
+            I'm pursuing my Dual Degree(B.Tech+M.Tech) in Computer Science and Engineering at 
+            <span style="color:#ffd700; font-weight:bold; background:rgba(10,25,49,0.18); padding:2px 6px; border-radius:6px;">
+                IIITDM Kancheepuram
+            </span>. 
+            I have a strong foundation in programming languages like C, C++, Python, HTML, CSS, JavaScript and in core subjects like DSA. 
+            I love to explore new technologies and apply them to real-world problems.
+        </p>
+    </div>
+    <div class="glass" id="skills">
+        <h2>Skills</h2>
+        <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>Python</li>
+            <li>C++</li>
+            <li>C Programming</li>
+            <li>DSA</li>
+        </ul>
+        <h3 style="color:#ffd700; margin-top:32px;">My Proficiency</h3>
+        <div class="progress-group">
+            <label>HTML</label>
+            <div class="progress-bar">
+                <div class="progress" style="width: 85%"><span class="progress-label">85%</span></div>
+            </div>
+            <label>CSS</label>
+            <div class="progress-bar">
+                <div class="progress" style="width: 80%"><span class="progress-label">80%</span></div>
+            </div>
+            <label>JavaScript</label>
+            <div class="progress-bar">
+                <div class="progress" style="width: 70%"><span class="progress-label">70%</span></div>
+            </div>
+            <label>Python</label>
+            <div class="progress-bar">
+                <div class="progress" style="width: 75%"><span class="progress-label">75%</span></div>
+            </div>
+            <label>C++</label>
+            <div class="progress-bar">
+                <div class="progress" style="width: 75%"><span class="progress-label">75%</span></div>
+            </div>
+            <label>C Programming</label>
+            <div class="progress-bar">
+                <div class="progress" style="width: 70%"><span class="progress-label">70%</span></div>
+            </div>
+            <label>DSA</label>
+            <div class="progress-bar">
+                <div class="progress" style="width: 40%"><span class="progress-label">40%</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="glass" id="projects">
+        <h2>Projects</h2>
+        <ul>
+            <li>
+                <strong>Task Tracker:</strong>
+                <ul style="font-size:16px; font-weight:normal; color:#fff; margin-top:4px;">
+                    <li>Developed a web application to efficiently manage daily tasks and to-dos</li>
+                    <li>Implemented features for adding, editing, and deleting tasks with a clean UI</li>
+                    <li>Practiced DOM manipulation and local storage for persistent data</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Portfolio Website:</strong>
+                <ul style="font-size:16px; font-weight:normal; color:#fff; margin-top:4px;">
+                    <li>Designed and built a dynamic, responsive personal portfolio using HTML, CSS, and JavaScript</li>
+                    <li>Showcases my skills, projects, and contact information in an interactive format</li>
+                    <li>Focused on modern UI/UX and smooth animations for a professional look</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Basic Travel Itinerary App:</strong>
+                <ul style="font-size:16px; font-weight:normal; color:#fff; margin-top:4px;">
+                    <li>Created a simple travel planning tool using HTML, CSS, and JavaScript</li>
+                    <li>Allowed users to input destinations and dates for a basic travel schedule</li>
+                    <li>Practiced front-end fundamentals and user input handling</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Zerodha Landing Page (Basic Clone):</strong>
+                <ul style="font-size:16px; font-weight:normal; color:#fff; margin-top:4px;">
+                    <li>Developed a static, responsive clone of the Zerodha homepage using HTML5 and CSS</li>
+                    <li>Focused on layout structure, design replication, and responsive behavior</li>
+                    <li>Helped strengthen front-end development basics and attention to design details</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="glass" id="contact">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:negiank007@gmail.com" style="color:#00b894;">negiank007@gmail.com</a></p>
+        <div style="font-size:2em; margin-bottom:10px; display:flex; align-items:center; gap:22px;">
+            <a href="https://wa.me/919528079246" target="_blank" style="color:#25D366; display:flex; align-items:center; text-decoration:none;">
+                <i class="fab fa-whatsapp"></i>
+                <span style="font-size:0.6em; margin-left:7px;">WhatsApp</span>
+            </a>
+        </div>
+        <a href="resume.docx" id="resume-link" class="resume-btn" style="display:inline-block;margin-top:18px;background:#ffd700;color:#222;padding:10px 28px;border-radius:24px;font-weight:bold;text-decoration:none;transition:background 0.2s;">
+            Download Resume
+        </a>
+        <script>
+        document.getElementById('resume-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open('resume.docx', '_blank');
+            const a = document.createElement('a');
+            a.href = 'resume.docx';
+            a.download = 'resume.docx';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+        </script>
+    </div>
+    <!-- Place this just below your profile photo and badge div (top-left corner) -->
+    <div style="position:fixed;top:280px;left:28px;z-index=32;display:flex;flex-direction:column;align-items:center;gap:10px;">
+      <span style="color:#ffd700;font-weight:bold;font-size:2em;background:rgba(10,25,49,0.85);padding:3px 14px;border-radius:8px;box-shadow:0 2px 8px #0002;letter-spacing:1px;">
+        Follow me:
+      </span>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:6px;">
+        <a href="https://github.com/Ankit07-spec" target="_blank" style="color:#fff;text-decoration:none;display:flex;align-items:center;gap:7px;font-size:1.3em;">
+          <i class="fab fa-github"></i> <span style="font-size:0.8em;">GitHub</span>
+        </a>
+        <a href="https://instagram.com/ankit_07_negi_" target="_blank" style="color:#E1306C;text-decoration:none;display:flex;align-items:center;gap:7px;font-size:1.3em;">
+          <i class="fab fa-instagram"></i> <span style="font-size:0.8em;">Instagram</span>
+        </a>
+        <a href="https://twitter.com/ankit_07_negi_" target="_blank" style="color:#1da1f2;text-decoration:none;display:flex;align-items:center;gap:7px;font-size:1.3em;">
+          <i class="fab fa-twitter"></i> <span style="font-size:0.8em;">Twitter</span>
+        </a>
+        <a href="https://linkedin.com/in/ankit-negi-2aa98232" target="_blank" style="color:#0077b5;text-decoration:none;display:flex;align-items:center;gap:7px;font-size:1.3em;">
+          <i class="fab fa-linkedin"></i> <span style="font-size:0.8em;">LinkedIn</span>
+        </a>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+    particlesJS.load('particles-js', 'https://cdn.jsdelivr.net/gh/VincentGarreau/particles.js/particles.json');
+    </script>
+    <script>
+        // Dynamic greeting based on time of day
+        function setGreeting() {
+            const hour = new Date().getHours();
+            let greeting;
+            if (hour < 12) {
+                greeting = "Good Morning! Welcome to my portfolio.";
+            } else if (hour < 18) {
+                greeting = "Good Afternoon! Welcome to my portfolio.";
+            } else {
+                greeting = "Good Evening! Welcome to my portfolio.";
+            }
+            document.getElementById('greeting').textContent = greeting;
+        }
+        setGreeting();
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+        }
+
+        // Typing effect for name
+        const nameText = "Ankit Negi";
+        let i = 0;
+        function typeWriter() {
+            if (i <= nameText.length) {
+                document.getElementById('typed-name').textContent = nameText.slice(0, i);
+                i++;
+                setTimeout(typeWriter, 120);
+            }
+        }
+        typeWriter();
+
+        // Animate progress bars on page load and when percentage changes
+        function animateProgressBars() {
+            document.querySelectorAll('.progress-bar .progress').forEach(bar => {
+                // Get the width from the inline style (e.g., "width: 85%")
+                const width = bar.getAttribute('data-width') || bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => { bar.style.width = width; }, 300);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // Set data-width attribute for each progress bar for easier updates
+            document.querySelectorAll('.progress-bar .progress').forEach(bar => {
+                bar.setAttribute('data-width', bar.style.width);
+            });
+
+            animateProgressBars();
+
+            // Add click/touch event to toggle percentage label
+            document.querySelectorAll('.progress').forEach(bar => {
+                bar.addEventListener('click', function () {
+                    bar.classList.toggle('show-label');
+                });
+                bar.addEventListener('touchstart', function () {
+                    bar.classList.toggle('show-label');
+                });
+            });
+        });
+
+        // Optional: Re-animate when you change the width dynamically in JS
+        // Example: animateProgressBars(); // Call this after changing any .progress width
+
+        // 1. Animated Section Reveal on Scroll
+        const glassSections = document.querySelectorAll('.glass');
+        function revealOnScroll() {
+            glassSections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 80) {
+                    section.style.opacity = 1;
+                    section.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('DOMContentLoaded', revealOnScroll);
+
+        // 2. Smooth Scroll for Navigation
+        document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 40,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // 3. Confetti Animation on Resume Download
+        document.getElementById('resume-link').addEventListener('click', function() {
+            confettiBurst();
+        });
+        function confettiBurst() {
+            for (let i = 0; i < 40; i++) {
+                const conf = document.createElement('div');
+                conf.className = 'confetti';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.background = `hsl(${Math.random()*360},80%,60%)`;
+                conf.style.animationDuration = (Math.random() * 1 + 1.5) + 's';
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 2000);
+            }
+        }
+    </script>
+</body>
+</html>
