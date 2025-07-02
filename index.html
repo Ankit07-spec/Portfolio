@@ -395,6 +395,16 @@ setTimeout(typeBadgeName, 500);
       </div>
     </nav>
 
+    <!-- Place this block just after your </nav> and before your <video ...> tag -->
+<div class="thought-container" style="position:fixed;top:110px;right:28px;z-index:40;max-width:400px;">
+  <div class="thought-title">
+    <i class="fas fa-lightbulb"></i> Thought of the Day
+  </div>
+  <div id="thought-block" class="thought-block">
+    <!-- Daily thought will appear here -->
+  </div>
+</div>
+
     <video class="background-video" autoplay muted loop playsinline>
         <source src="bg.mp4" type="video/mp4">
         Your browser does not support the video tag.
@@ -535,7 +545,7 @@ setTimeout(typeBadgeName, 500);
         </a>
       </div>
     </div>
-    <div class="thought-container">
+    <div class="thought-container" style="position:fixed;top:110px;right:28px;z-index:40;max-width:400px;">
   <div class="thought-title">
     <i class="fas fa-lightbulb"></i> Thought of the Day
   </div>
