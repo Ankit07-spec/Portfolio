@@ -276,6 +276,40 @@
             width: 0;
             transition: width 1.4s cubic-bezier(.4,2.3,.3,1);
         }
+        .thought-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 32px 0 18px 0;
+    width: 100%;
+}
+.thought-title {
+    color: #ffd700;
+    font-size: 1.3em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.thought-block {
+    padding: 18px 28px;
+    background: rgba(255,255,255,0.13);
+    border-radius: 16px;
+    box-shadow: 0 2px 12px #0a193133;
+    color: #ffd700;
+    font-size: 1.15em;
+    font-style: italic;
+    font-weight: 500;
+    max-width: 600px;
+    text-align: center;
+    min-height: 48px;
+    transition: background 0.3s;
+}
+.thought-block:hover {
+    background: rgba(255,255,255,0.22);
+}
     </style>
 </head>
 <body>
@@ -501,9 +535,15 @@ setTimeout(typeBadgeName, 500);
         </a>
       </div>
     </div>
-    <div id="thought-block" style="margin: 24px 0 18px 0; padding: 18px 28px; background: rgba(255,255,255,0.13); border-radius: 16px; box-shadow: 0 2px 12px #0a193133; color: #ffd700; font-size: 1.2em; font-style: italic; font-weight: 500; max-width: 600px; text-align: center;">
+    <div class="thought-container">
+  <div class="thought-title">
+    <i class="fas fa-lightbulb"></i> Thought of the Day
+  </div>
+  <div id="thought-block" class="thought-block">
     <!-- Daily thought will appear here -->
-    </div>
+  </div>
+</div>
+
     <script>
     // Array of thoughts/quotes
     const thoughts = [
