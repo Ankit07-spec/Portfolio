@@ -606,8 +606,8 @@ setTimeout(typeBadgeName, 500);
 
         // Animated typing effect for About Me section
         const aboutText = `Hey! I'm Ankit Negi, a knowledgeable and enthusiastic developer passionate about building creative solutions and learning new technologies. 
-I'm pursuing my Dual Degree(B.Tech+M.Tech) in Computer Science and Engineering at 
-IIITDM Kancheepuram. 
+I'm pursuing my <span style="color:#ffd700;background:rgba(10,25,49,0.18);padding:2px 6px;border-radius:6px;">Dual Degree (B.Tech+M.Tech)</span> in Computer Science and Engineering at 
+<span style="color:#ffd700;font-weight:bold;background:rgba(10,25,49,0.18);padding:2px 6px;border-radius:6px;">IIITDM Kancheepuram</span>. 
 I have a strong foundation in programming languages like C, C++, Python, HTML, CSS, JavaScript and in core subjects like DSA. 
 I love to explore new technologies and apply them to real-world problems.`;
 
@@ -617,6 +617,7 @@ I love to explore new technologies and apply them to real-world problems.`;
         function typeAbout() {
             if (aboutIdx <= aboutText.length) {
                 // Replace newlines with <br> for HTML display
+                // and allow HTML tags for highlights
                 aboutTarget.innerHTML = aboutText.slice(0, aboutIdx).replace(/\n/g, "<br>");
                 aboutIdx++;
                 setTimeout(typeAbout, 22);
