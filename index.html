@@ -501,6 +501,32 @@ setTimeout(typeBadgeName, 500);
         </a>
       </div>
     </div>
+    <div id="thought-block" style="margin: 24px 0 18px 0; padding: 18px 28px; background: rgba(255,255,255,0.13); border-radius: 16px; box-shadow: 0 2px 12px #0a193133; color: #ffd700; font-size: 1.2em; font-style: italic; font-weight: 500; max-width: 600px; text-align: center;">
+    <!-- Daily thought will appear here -->
+    </div>
+    <script>
+    // Array of thoughts/quotes
+    const thoughts = [
+        "Building ideas, one pixel at a time.",
+        "Every great developer you know got there by solving problems they were unqualified to solve until they actually did it.",
+        "Code is like humor. When you have to explain it, it’s bad.",
+        "Continuous learning is the minimum requirement for success.",
+        "Dream big. Start small. Act now.",
+        "The best way to predict the future is to invent it.",
+        "Success is not the key to happiness. Happiness is the key to success.",
+        "Don’t watch the clock; do what it does. Keep going.",
+        "Great things never come from comfort zones.",
+        "If you can imagine it, you can create it."
+    ];
+
+    // Get today's index based on the date
+    const today = new Date();
+    const idx = today.getFullYear() * 1000 + today.getMonth() * 31 + today.getDate();
+    const thought = thoughts[idx % thoughts.length];
+
+    // Set the thought in the block
+    document.getElementById('thought-block').textContent = thought;
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
     particlesJS.load('particles-js', 'https://cdn.jsdelivr.net/gh/VincentGarreau/particles.js/particles.json');
